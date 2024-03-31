@@ -17,6 +17,7 @@ services:
         - path: ./web-app/yarn.lock
           action: rebuild
         - path: ./web-app
+          target: /
           action: sync
 
   api:
@@ -35,6 +36,7 @@ services:
         - path: ./api/yarn.lock
           action: rebuild
         - path: ./api
+          target: /
           action: sync
 
   db:
