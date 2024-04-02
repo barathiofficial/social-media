@@ -7,9 +7,12 @@ services:
     build:
       context: ./web-app
       dockerfile: Dockerfile
+    container_name: social-app-container
+    image: social-app-image
+    env_file:
+      - path: ./web-app/.env
     ports:
       - 3000:3000
-    container_name: social-app
     develop:
       watch:
         - path: ./web-app/package.json
@@ -17,7 +20,7 @@ services:
         - path: ./web-app/yarn.lock
           action: rebuild
         - path: ./web-app
-          target: /
+          target: /app
           action: sync
 
   api:
@@ -26,9 +29,12 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
+    container_name: social-app-api-container
+    image: social-app-api-image
+    env_file:
+      - path: ./web-app/.env
     ports:
       - 3001:3001
-    container_name: social-app-api
     develop:
       watch:
         - path: ./api/package.json
@@ -36,16 +42,17 @@ services:
         - path: ./api/yarn.lock
           action: rebuild
         - path: ./api
-          target: /
+          target: /app
           action: sync
 
   db:
-    image: postgres:16-alpine
+    image: postgres
+    container_name: social-app-db-container
+    restart: always
     ports:
       - 5432:5432
-    container_name: social-app-db
     volumes:
-      - social-app:/data/db
+      - social-app-db-data:/db/data
 
 volumes:
-  social-app:
+  social-app-db-data:
