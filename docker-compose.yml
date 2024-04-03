@@ -17,7 +17,7 @@ services:
       watch:
         - path: ./web-app/package.json
           action: rebuild
-        - path: ./web-app/yarn.lock
+        - path: ./web-app/package-lock.json
           action: rebuild
         - path: ./web-app
           target: /app
@@ -39,7 +39,7 @@ services:
       watch:
         - path: ./api/package.json
           action: rebuild
-        - path: ./api/yarn.lock
+        - path: ./api/package-lock.json
           action: rebuild
         - path: ./api
           target: /app
