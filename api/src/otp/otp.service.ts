@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common'
+import { DatabaseService } from 'src/database/database.service'
 import { CreateOtpDto } from './dto/create-otp.dto'
 import { UpdateOtpDto } from './dto/update-otp.dto'
 
 @Injectable()
 export class OtpService {
+	constructor(private readonly db: DatabaseService) {}
+
 	create(createOtpDto: CreateOtpDto) {
-		return 'This action adds a new otp'
+		return this.db.otp.create({
+			data: createOtpDto
+		})
 	}
 
 	findAll() {
