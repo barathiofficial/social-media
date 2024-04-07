@@ -12,6 +12,12 @@ export class OtpService {
 		})
 	}
 
+	findOtp(userId: string, otp: number) {
+		return this.db.otp.findUnique({
+			where: { userId, otp }
+		})
+	}
+
 	private generateOtp() {
 		return Math.floor(Math.random() * 1000 + 8999)
 	}
