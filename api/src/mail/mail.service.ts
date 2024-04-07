@@ -6,7 +6,6 @@ import * as path from 'path'
 import { transporter } from './mail.config'
 
 type SendOtpContext = {
-	username: string
 	otp: number
 	otpValidityMinutes: number
 }
@@ -14,16 +13,19 @@ type SendOtpContext = {
 @Injectable()
 export class MailService {
 	async sendOtp(to: string, otp: number) {
-		const html = await this.getMailContent<SendOtpContext>('otp', {
+		const context: SendOtpContext = {
 			otp,
-			otpValidityMinutes: 15,
-			username: to
-		})
+			otpValidityMinutes: 15
+		}
 
-		this.sendMail(to, {
+		const html = await this.getMailContent<SendOtpContext>('otp', context)
+
+		const mailOptions = {
 			html,
 			subject: 'OTP - ' + otp
-		})
+		}
+
+		this.sendMail(to, mailOptions)
 	}
 
 	private async getMailContent<C>(filename: string, context: C) {
@@ -37,11 +39,7 @@ export class MailService {
 
 	private sendMail(to: string, options: Mail.Options) {
 		transporter
-			.sendMail({
-				from: '"Social Media" <barathiofficial@gmail.com>',
-				to,
-				...options
-			})
+			.sendMail({ to, ...options })
 			.then((res) => {
 				console.log(res)
 			})
