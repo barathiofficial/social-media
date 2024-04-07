@@ -6,7 +6,7 @@ import {
 	ValidationPipe
 } from '@nestjs/common'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
-import { CreateUserDto } from './dto'
+import { ActivateUserDto, CreateUserDto } from './dto'
 import { UsersService } from './users.service'
 
 @Controller('users')
@@ -26,5 +26,10 @@ export class UsersController {
 
 			throw new Error(error)
 		}
+	}
+
+	@Post('activate')
+	activate(@Body(ValidationPipe) data: ActivateUserDto) {
+		return this.usersService.activate(data)
 	}
 }
