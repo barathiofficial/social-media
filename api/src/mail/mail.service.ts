@@ -5,7 +5,7 @@ import Handlebars from 'handlebars'
 import * as nodemailer from 'nodemailer'
 import Mail from 'nodemailer/lib/mailer'
 import * as path from 'path'
-import { MailConfig } from 'src/config'
+import { mailConfig } from 'src/config'
 
 type SendOtpContext = {
 	otp: number
@@ -14,7 +14,11 @@ type SendOtpContext = {
 
 @Injectable()
 export class MailService {
-	constructor(private readonly configService: ConfigService<MailConfig>) {}
+	constructor(
+		private readonly configService: ConfigService<{
+			mail: typeof mailConfig
+		}>
+	) {}
 
 	async sendOtp(to: string, otp: number) {
 		const context: SendOtpContext = {
