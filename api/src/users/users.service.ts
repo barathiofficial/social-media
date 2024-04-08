@@ -6,8 +6,7 @@ import {
 import { DatabaseService } from 'src/database/database.service'
 import { MailService } from 'src/mail/mail.service'
 import { OtpService } from 'src/otp/otp.service'
-import { ActivateUserDto, UpdateUserDto } from './dto'
-import { CreateUserDto } from './dto/create-user.dto'
+import { ActivateUserDto, CreateUserDto, UpdateUserDto } from './dto'
 
 @Injectable()
 export class UsersService {
