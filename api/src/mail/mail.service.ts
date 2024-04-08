@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import * as fs from 'fs/promises'
 import Handlebars from 'handlebars'
+import * as nodemailer from 'nodemailer'
 import Mail from 'nodemailer/lib/mailer'
 import * as path from 'path'
-import { transporter } from './mail.config'
+import { MailConfig } from 'src/config'
 
 type SendOtpContext = {
 	otp: number
@@ -12,6 +14,8 @@ type SendOtpContext = {
 
 @Injectable()
 export class MailService {
+	constructor(private readonly configService: ConfigService<MailConfig>) {}
+
 	async sendOtp(to: string, otp: number) {
 		const context: SendOtpContext = {
 			otp,
@@ -38,6 +42,16 @@ export class MailService {
 	}
 
 	private sendMail(to: string, options: Mail.Options) {
+		const transport = this.configService.get('mail')
+		const user = this.configService.get<string>('mail.auth.user', {
+			infer: true
+		})
+		const defaults = {
+			from: `"Social Media" <${user}>`
+		}
+
+		const transporter = nodemailer.createTransport(transport, defaults)
+
 		transporter
 			.sendMail({ to, ...options })
 			.then((res) => {
