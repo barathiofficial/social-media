@@ -27,6 +27,6 @@ export class OtpService {
 	}
 
 	private generateOtp() {
-		return Math.floor(Math.random() * 1000 + 8999)
+		return Math.floor(Math.random() * 8999 + 1000)
 	}
 }
