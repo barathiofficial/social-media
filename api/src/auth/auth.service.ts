@@ -27,7 +27,13 @@ export class AuthService {
 			user = await this.usersService.create(data)
 			userOtp = await this.otpService.create(user.id)
 		} else {
-			userOtp = await this.otpService.update(user.id)
+			userOtp = await this.otpService.findUnique(user.id)
+
+			if (!userOtp) {
+				userOtp = await this.otpService.create(user.id)
+			} else {
+				userOtp = await this.otpService.update(user.id)
+			}
 		}
 
 		this.mailService.sendOtp(user.email, userOtp.otp)
