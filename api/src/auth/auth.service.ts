@@ -4,6 +4,7 @@ import {
 	NotFoundException
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
+import { Otp } from '@prisma/client'
 import { MailService } from 'src/mail/mail.service'
 import { OtpService } from 'src/otp/otp.service'
 import { UsersService } from 'src/users/users.service'
@@ -19,15 +20,17 @@ export class AuthService {
 	) {}
 
 	async authenticate(data: AuthenticateDto) {
+		let userOtp: Otp | null
 		let user = await this.usersService.findUnique(data.email)
 
 		if (!user) {
 			user = await this.usersService.create(data)
+			userOtp = await this.otpService.create(user.id)
+		} else {
+			userOtp = await this.otpService.update(user.id)
 		}
 
-		const { otp } = await this.otpService.create(user.id)
-
-		this.mailService.sendOtp(user.email, otp)
+		this.mailService.sendOtp(user.email, userOtp.otp)
 
 		return {
 			message: 'OTP sent'
