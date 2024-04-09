@@ -12,6 +12,14 @@ export class OtpService {
 		})
 	}
 
+	update(userId: string) {
+		const otp = this.generateOtp()
+		return this.db.otp.update({
+			data: { otp },
+			where: { userId }
+		})
+	}
+
 	findOtp(userId: string, otp: number) {
 		return this.db.otp.findUnique({
 			where: { userId, otp }
