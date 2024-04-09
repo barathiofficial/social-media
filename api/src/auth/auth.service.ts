@@ -3,6 +3,7 @@ import {
 	Injectable,
 	NotFoundException
 } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
 import { MailService } from 'src/mail/mail.service'
 import { OtpService } from 'src/otp/otp.service'
 import { UsersService } from 'src/users/users.service'
@@ -13,7 +14,8 @@ export class AuthService {
 	constructor(
 		private readonly usersService: UsersService,
 		private readonly otpService: OtpService,
-		private readonly mailService: MailService
+		private readonly mailService: MailService,
+		private readonly jwtService: JwtService
 	) {}
 
 	async authenticate(data: AuthenticateDto) {
@@ -48,5 +50,10 @@ export class AuthService {
 		if (!user.verified) {
 			user = await this.usersService.update({ verified: true }, user.id)
 		}
+
+		const payload = { sub: user.id, email: user.email }
+		const access_token = await this.jwtService.signAsync(payload)
+
+		return { access_token }
 	}
 }

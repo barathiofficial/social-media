@@ -1,44 +1,13 @@
-import {
-	BadRequestException,
-	Injectable,
-	NotFoundException
-} from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { DatabaseService } from 'src/database/database.service'
-import { MailService } from 'src/mail/mail.service'
-import { OtpService } from 'src/otp/otp.service'
-import { ActivateUserDto, CreateUserDto, UpdateUserDto } from './dto'
+import { CreateUserDto, UpdateUserDto } from './dto'
 
 @Injectable()
 export class UsersService {
-	constructor(
-		private readonly db: DatabaseService,
-		private readonly otpService: OtpService,
-		private readonly mailService: MailService
-	) {}
+	constructor(private readonly db: DatabaseService) {}
 
-	async create(data: CreateUserDto) {
-		const user = await this.db.user.create({ data })
-		const { otp } = await this.otpService.create(user.id)
-
-		this.mailService.sendOtp(user.email, otp)
-
-		return user
-	}
-
-	async activate(data: ActivateUserDto) {
-		const user = await this.findUnique(data.email)
-
-		if (!user) {
-			throw new NotFoundException('User not found')
-		}
-
-		const otp = await this.otpService.findOtp(user.id, data.otp)
-
-		if (!otp) {
-			throw new BadRequestException('Invalid OTP')
-		}
-
-		return this.update({ verified: true }, user.id)
+	create(data: CreateUserDto) {
+		return this.db.user.create({ data })
 	}
 
 	update(data: UpdateUserDto, id: string) {
