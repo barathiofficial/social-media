@@ -22,4 +22,11 @@ export class UsersService {
 			where: { email }
 		})
 	}
+
+	findOne(id: string) {
+		return this.db.user.findUnique({
+			where: { id }
+		})
+	}
 }
+
