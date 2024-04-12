@@ -1,14 +1,10 @@
-import {
-	BadRequestException,
-	Injectable,
-	NotFoundException
-} from '@nestjs/common'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { Otp } from '@prisma/client'
+import type { Otp } from '@prisma/client'
 import { MailService } from 'src/mail/mail.service'
 import { OtpService } from 'src/otp/otp.service'
 import { UsersService } from 'src/users/users.service'
-import { AuthenticateDto, VerifyDto } from './dto'
+import type { AuthenticateDto, VerifyDto } from './dto'
 
 @Injectable()
 export class AuthService {

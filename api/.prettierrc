@@ -1,12 +1,21 @@
 {
-	"singleQuote": true,
-	"trailingComma": "none",
-	"useTabs": true,
-	"tabWidth": 4,
-	"semi": false,
-	"arrowParens": "always",
 	"bracketSameLine": true,
 	"bracketSpacing": true,
+	"arrowParens": "always",
 	"endOfLine": "crlf",
-	"printWidth": 120
+	"printWidth": 80,
+	"semi": false,
+	"singleQuote": true,
+	"tabWidth": 4,
+	"trailingComma": "none",
+	"useTabs": true,
+	"overrides": [
+		{
+			"files": "*.hbs",
+			"options": {
+				"singleQuote": false,
+				"parser": "html"
+			}
+		}
+	]
 }

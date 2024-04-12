@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { DatabaseService } from 'src/database/database.service'
-import { CreateUserDto, UpdateUserDto } from './dto'
+import type { CreateUserDto, UpdateUserDto } from './dto'
 
 @Injectable()
 export class UsersService {
@@ -29,4 +29,3 @@ export class UsersService {
 		})
 	}
 }
-

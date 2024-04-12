@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
-import { jwtConfig } from 'src/config'
+import type { jwtConfig } from 'src/config'
 import { MailModule } from 'src/mail/mail.module'
 import { OtpModule } from 'src/otp/otp.module'
 import { UsersModule } from 'src/users/users.module'
@@ -35,4 +35,3 @@ import { JwtStrategy } from './strategies'
 	providers: [AuthService, JwtStrategy]
 })
 export class AuthModule {}
-

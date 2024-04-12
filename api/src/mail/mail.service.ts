@@ -3,9 +3,9 @@ import { ConfigService } from '@nestjs/config'
 import * as fs from 'fs/promises'
 import Handlebars from 'handlebars'
 import * as nodemailer from 'nodemailer'
-import Mail from 'nodemailer/lib/mailer'
+import type Mail from 'nodemailer/lib/mailer'
 import * as path from 'path'
-import { mailConfig } from 'src/config'
+import type { mailConfig } from 'src/config'
 
 type SendOtpContext = {
 	otp: number
@@ -58,11 +58,7 @@ export class MailService {
 
 		transporter
 			.sendMail({ to, ...options })
-			.then((res) => {
-				console.log(res)
-			})
-			.catch((err) => {
-				console.log(err)
-			})
+			.then(() => {})
+			.catch(() => {})
 	}
 }
