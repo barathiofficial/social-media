@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import {
+	BadRequestException,
+	Injectable,
+	NotFoundException
+} from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import type { Otp } from '@prisma/client'
 import { MailService } from 'src/mail/mail.service'

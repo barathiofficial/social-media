@@ -18,7 +18,9 @@ import { JwtStrategy } from './strategies'
 		JwtModule.registerAsync({
 			imports: [ConfigModule],
 			inject: [ConfigService],
-			useFactory: async (configService: ConfigService<{ jwt: typeof jwtConfig }>) => ({
+			useFactory: async (
+				configService: ConfigService<{ jwt: typeof jwtConfig }>
+			) => ({
 				secret: configService.get<string>('jwt.secret', {
 					infer: true
 				}),
