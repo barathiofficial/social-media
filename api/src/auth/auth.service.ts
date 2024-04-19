@@ -1,3 +1,6 @@
+import { MailService } from '@/mail/mail.service'
+import { OtpService } from '@/otp/otp.service'
+import { UsersService } from '@/users/users.service'
 import {
 	BadRequestException,
 	Injectable,
@@ -5,9 +8,6 @@ import {
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import type { Otp } from '@prisma/client'
-import { MailService } from 'src/mail/mail.service'
-import { OtpService } from 'src/otp/otp.service'
-import { UsersService } from 'src/users/users.service'
 import type { AuthenticateDto, VerifyDto } from './dto'
 
 @Injectable()

@@ -1,3 +1,4 @@
+import { mailConfig } from '@/config'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import * as fs from 'fs/promises'
@@ -5,7 +6,6 @@ import Handlebars from 'handlebars'
 import * as nodemailer from 'nodemailer'
 import type Mail from 'nodemailer/lib/mailer'
 import * as path from 'path'
-import type { mailConfig } from 'src/config'
 
 type SendOtpContext = {
 	otp: number

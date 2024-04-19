@@ -1,5 +1,5 @@
+import { DatabaseService } from '@/database/database.service'
 import { Injectable } from '@nestjs/common'
-import { DatabaseService } from 'src/database/database.service'
 
 @Injectable()
 export class OtpService {

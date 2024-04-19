@@ -1,7 +1,7 @@
+import { dbConfig } from '@/config'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { PrismaClient } from '@prisma/client'
-import type { dbConfig } from 'src/config'
 
 @Injectable()
 export class DatabaseService extends PrismaClient {

@@ -1,9 +1,9 @@
+import { jwtConfig } from '@/config'
+import { UsersService } from '@/users/users.service'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import type { jwtConfig } from 'src/config'
-import { UsersService } from 'src/users/users.service'
 
 type JwtPayload = {
 	sub: string
