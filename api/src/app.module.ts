@@ -4,8 +4,9 @@ import { AuthModule } from './auth/auth.module'
 import { dbConfig, jwtConfig, mailConfig } from './config'
 import { DatabaseModule } from './database/database.module'
 import { MailModule } from './mail/mail.module'
-import { OtpModule } from './otp/otp.module'
+import { PostsModule } from './posts/posts.module'
 import { UsersModule } from './users/users.module'
+import { FilesModule } from './files/files.module'
 
 @Module({
 	imports: [
@@ -14,9 +15,10 @@ import { UsersModule } from './users/users.module'
 		}),
 		UsersModule,
 		DatabaseModule,
-		OtpModule,
 		MailModule,
-		AuthModule
+		AuthModule,
+		PostsModule,
+		FilesModule
 	]
 })
 export class AppModule {}
