@@ -5,8 +5,16 @@ module.exports = {
 		tsconfigRootDir: __dirname,
 		sourceType: 'module'
 	},
-	plugins: ['@typescript-eslint', '@typescript-eslint/eslint-plugin', 'prettier'],
-	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+	plugins: [
+		'@typescript-eslint',
+		'@typescript-eslint/eslint-plugin',
+		'prettier'
+	],
+	extends: [
+		'eslint:recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:prettier/recommended'
+	],
 	root: true,
 	env: {
 		node: true,
@@ -19,8 +27,7 @@ module.exports = {
 			'error',
 			'tab',
 			{
-				SwitchCase: 0,
-				ignoredNodes: ['PropertyDefinition']
+				ignoredNodes: ['SwitchCase', 'Decorator']
 			}
 		],
 		'linebreak-style': ['error', 'windows'],
