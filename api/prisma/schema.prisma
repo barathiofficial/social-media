@@ -8,59 +8,82 @@ datasource db {
 }
 
 model User {
-    id       String  @id() @default(uuid())
-    email    String  @unique()
-    fullname String?
-    verified Boolean @default(false)
+    id    String  @id @default(uuid())
+    email String  @unique @db.VarChar(255)
+    name  String? @db.VarChar(255)
+
+    otp       String?   @db.VarChar(6)
+    otpExpiry DateTime?
 
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
+    updatedAt DateTime @updatedAt
 
-    otp   Otp?
-    posts Post[]
+    posts        Post[]
+    postComments PostComment[]
+    postLikes    PostLike[]
 
     @@map("users")
 }
 
-model Otp {
-    id  String @id() @default(uuid())
-    otp Int
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
-
-    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    userId String @unique()
-
-    @@map("otp")
+enum PostStatus {
+    DRAFT
+    PUBLISHED
+    ARCHIVED
 }
 
 model Post {
-    id      String  @id() @default(uuid())
-    content String?
+    id      String     @id @default(uuid())
+    content String?    @db.Text
+    status  PostStatus @default(DRAFT)
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
 
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
+    updatedAt DateTime @updatedAt
 
-    user      User        @relation(fields: [userId], references: [id])
-    userId    String
-    postMedia PostMedia[]
+    medias   PostMedia[]
+    likes    PostLike[]
+    comments PostComment[]
 
     @@map("posts")
 }
 
-enum PostMediaType {
-    IMAGE
-    VIDEO
+model PostMedia {
+    id  String @id @default(uuid())
+    url String @db.VarChar(255)
+
+    postId String
+    post   Post   @relation(fields: [postId], references: [id])
+
+    @@map("post_medias")
 }
 
-model PostMedia {
-    id     String        @id() @default(uuid())
-    url    String
+model PostLike {
+    id String @id @default(uuid())
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
+
     postId String
-    type   PostMediaType
+    post   Post   @relation(fields: [postId], references: [id])
 
-    post Post @relation(fields: [postId], references: [id])
+    @@map("post_likes")
+}
 
-    @@map("post_media")
+model PostComment {
+    id      String      @id @default(uuid())
+    content String?     @db.Text
+    status  PostStatus? @default(DRAFT)
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
+
+    postId String
+    post   Post   @relation(fields: [postId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("post_comments")
 }
