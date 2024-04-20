@@ -1,4 +1,4 @@
-import { mailConfig } from '@/config'
+import type { mailConfig } from '@/config'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import * as fs from 'fs/promises'
@@ -8,7 +8,7 @@ import type Mail from 'nodemailer/lib/mailer'
 import * as path from 'path'
 
 type SendOtpContext = {
-	otp: number
+	otp: string
 	otpValidityMinutes: number
 }
 
@@ -20,7 +20,7 @@ export class MailService {
 		}>
 	) {}
 
-	async sendOtp(to: string, otp: number) {
+	async sendOtp(to: string, otp: string) {
 		const context: SendOtpContext = {
 			otp,
 			otpValidityMinutes: 15

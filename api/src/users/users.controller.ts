@@ -8,6 +8,15 @@ import { User } from '@prisma/client'
 export class UsersController {
 	@Get('me')
 	findMe(@GetUser() user: User) {
-		return user
+		return Object.keys(user).reduce((acc, cur: keyof User) => {
+			if (cur !== 'otp' && cur !== 'otpExpiry') {
+				return {
+					...acc,
+					[cur]: user[cur]
+				}
+			}
+
+			return acc
+		}, {})
 	}
 }

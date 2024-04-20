@@ -1,4 +1,4 @@
-import { dbConfig } from '@/config'
+import type { dbConfig } from '@/config'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { PrismaClient } from '@prisma/client'

@@ -17,6 +17,16 @@ export class UsersService {
 		})
 	}
 
+	updateOtp(id: string) {
+		return this.db.user.update({
+			data: {
+				otp: this.generateOtp(),
+				otpExpiry: new Date(Date.now() + 300000)
+			},
+			where: { id }
+		})
+	}
+
 	findUnique(email: string) {
 		return this.db.user.findUnique({
 			where: { email }
@@ -27,5 +37,9 @@ export class UsersService {
 		return this.db.user.findUnique({
 			where: { id }
 		})
+	}
+
+	private generateOtp() {
+		return Math.floor(Math.random() * 8999 + 1000).toString()
 	}
 }

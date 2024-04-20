@@ -1,4 +1,4 @@
-import { jwtConfig } from '@/config'
+import type { jwtConfig } from '@/config'
 import { UsersService } from '@/users/users.service'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'

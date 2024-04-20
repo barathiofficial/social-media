@@ -1,4 +1,4 @@
-import { IsEmail, IsInt, IsNotEmpty, IsString } from 'class-validator'
+import { IsEmail, IsNotEmpty, IsNumberString, IsString } from 'class-validator'
 
 export class VerifyDto {
 	@IsNotEmpty({ message: 'Email is required' })
@@ -7,6 +7,6 @@ export class VerifyDto {
 	email: string
 
 	@IsNotEmpty({ message: 'OTP cannot be empty' })
-	@IsInt({ message: 'OTP must be a number' })
-	otp: number
+	@IsNumberString({ no_symbols: true }, { message: 'Invalid OTP' })
+	otp: string
 }

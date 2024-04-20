@@ -1,6 +1,5 @@
-import { jwtConfig } from '@/config'
+import type { jwtConfig } from '@/config'
 import { MailModule } from '@/mail/mail.module'
-import { OtpModule } from '@/otp/otp.module'
 import { UsersModule } from '@/users/users.module'
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
@@ -12,7 +11,6 @@ import { JwtStrategy } from './strategies'
 @Module({
 	imports: [
 		UsersModule,
-		OtpModule,
 		MailModule,
 		ConfigModule,
 		JwtModule.registerAsync({
